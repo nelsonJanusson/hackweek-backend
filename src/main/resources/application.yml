@@ -1,0 +1,25 @@
+debug: true
+server:
+  port: 3000
+spring:
+  application:
+    name: hackweek-backend
+  datasource:
+    url: jdbc:postgresql://localhost:5432/saltdb
+    username: salt
+    password: secret
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  sql:
+    init:
+      platform: postgresql
+      mode: always
+logging:
+  level:
+    org:
+      springframework:
+        boot:
+          autoconfigure: ERROR
