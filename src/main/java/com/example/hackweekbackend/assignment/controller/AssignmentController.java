@@ -1,54 +1,52 @@
 package com.example.hackweekbackend.assignment.controller;
 
+import com.example.hackweekbackend.assignment.service.AssignmentService;
 import com.example.hackweekbackend.leg.AddLegDto;
 import com.example.hackweekbackend.leg.Leg;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.hackweekbackend.assignment.service.AssignmentService;
 import com.example.hackweekbackend.assignment.model.AssignmentDto;
 import com.example.hackweekbackend.assignment.model.AddAssignmentDto;
 import com.example.hackweekbackend.assignment.model.Assignment;
 
+import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @CrossOrigin
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/assignment")
+@RequestMapping("/assignment")
 public class AssignmentController {
     private final AssignmentService assignmentService;
+    private final URI uri;
 
     @PostMapping
     ResponseEntity<AssignmentDto> createAssignment(@RequestBody AddAssignmentDto addAssignmentDto) {
         AssignmentDto assignmentDto = assignmentService.createAssignment(new Assignment(addAssignmentDto)).mapToDto();
         return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .header("location", "/api/assignment/" + assignmentDto.id())
+                .created(uri.resolve("/assignment/" + assignmentDto.id()))
                 .body(assignmentDto);
     }
 
     @PostMapping("/{assignmentId}/{driverId}")
     ResponseEntity<AssignmentDto> setDriver(@PathVariable UUID assignmentId,@PathVariable UUID driverId) {
-        AssignmentDto assignmentDto = assignmentService.setDriver(assignmentId,driverId).mapToDto();
         return ResponseEntity
-                .accepted()
-                .body(assignmentDto);
+                .ok(assignmentService.setDriver(assignmentId,driverId).mapToDto());
     }
+
     @PutMapping
-    ResponseEntity<AssignmentDto> updateAssignment(@RequestBody AddAssignmentDto addAssignmentDto) {
-        AssignmentDto assignmentDto = assignmentService.update(new Assignment(addAssignmentDto)).mapToDto();
+    ResponseEntity<AssignmentDto> updateAssignment(@RequestBody AssignmentDto assignmentDto) {
         return ResponseEntity
-                .accepted()
-                .body(assignmentDto);
+                .ok(assignmentService.update(new Assignment(assignmentDto)).mapToDto());
     }
 
     @PostMapping("/leg")
     ResponseEntity<AssignmentDto> addLeg(@RequestBody AddLegDto addLegDto) {
         return ResponseEntity
-                .accepted()
-                .body(assignmentService
+                .ok(assignmentService
                         .addLeg(new Leg(addLegDto), addLegDto.assignmentId())
                         .mapToDto());
     }
@@ -56,5 +54,14 @@ public class AssignmentController {
     @GetMapping("/{assignmentId}")
     ResponseEntity<AssignmentDto> getAssignment(@PathVariable UUID assignmentId) {
         return ResponseEntity.ok(assignmentService.getAssignment(assignmentId).mapToDto());
+    }
+    @GetMapping
+    ResponseEntity<List<AssignmentDto>> getAssignments() {
+        return ResponseEntity.ok(assignmentService.getAssignments().stream().map(Assignment::mapToDto).toList());
+    }
+    @DeleteMapping("/{assignmentId}")
+    ResponseEntity<?> deleteAssignment(@PathVariable UUID assignmentId) {
+        assignmentService.deleteAssignment(assignmentId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

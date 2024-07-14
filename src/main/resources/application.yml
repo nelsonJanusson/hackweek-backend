@@ -1,6 +1,8 @@
 debug: true
 server:
   port: 3000
+  servlet:
+    context-path: /api
 spring:
   application:
     name: hackweek-backend

@@ -30,6 +30,15 @@ public class Assignment {
         pickupLocation = addAssignmentDto.pickupLocation();
         destination = addAssignmentDto.destination();
     }
+    public Assignment (AssignmentDto assignmentDto){
+        id = assignmentDto.id();
+        legs = assignmentDto.legs();
+        product= assignmentDto.product();
+        pickupLocation = assignmentDto.pickupLocation();
+        destination = assignmentDto.destination();
+        driver =new Driver(assignmentDto.driverDto()) ;
+        truck = new Truck(assignmentDto.truckDto());
+    }
 
     @Id
     @UuidGenerator
@@ -58,7 +67,6 @@ public class Assignment {
     public AssignmentDto mapToDto(){
         DriverDto driverDto = driver==null? null:driver.mapToDto();
         TruckDto truckDto = truck==null? null:truck.mapToDto();
-
         return new AssignmentDto(id,legs,product,pickupLocation,destination, driverDto, truckDto);
     }
 }

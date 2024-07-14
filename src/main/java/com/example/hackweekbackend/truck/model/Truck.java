@@ -26,6 +26,12 @@ public class Truck {
         type = addTruckDto.type();
     }
 
+    public Truck(TruckDto truckDto) {
+        id = truckDto.id();
+        year = truckDto.year();
+        type = truckDto.type();
+    }
+
     @Id
     @UuidGenerator
     private UUID id;
@@ -35,6 +41,7 @@ public class Truck {
 
     @Column(name = "type", nullable = false)
     private String type;
+
 
     public TruckDto mapToDto(){
         return new TruckDto(id, year, type);

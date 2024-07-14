@@ -20,6 +20,11 @@ public class Driver {
         name = addDriverDto.name();
         salary = addDriverDto.salary();
     }
+    public Driver(DriverDto driverDto){
+        id = driverDto.id();
+        name = driverDto.name();
+        salary = driverDto.salary();
+    }
 
     @Id
     @UuidGenerator
