@@ -5,7 +5,6 @@ import com.example.hackweekbackend.assignment.model.AssignmentStatus;
 import com.example.hackweekbackend.assignment.repository.AssignmentRepo;
 import com.example.hackweekbackend.driver.model.Status;
 import com.example.hackweekbackend.driver.repository.DriverRepo;
-import com.example.hackweekbackend.driver.model.Driver;
 import com.example.hackweekbackend.leg.Leg;
 import com.example.hackweekbackend.truck.repository.TruckRepo;
 import lombok.AllArgsConstructor;

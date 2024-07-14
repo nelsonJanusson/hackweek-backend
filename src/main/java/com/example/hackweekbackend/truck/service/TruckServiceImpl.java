@@ -33,9 +33,4 @@ public class TruckServiceImpl implements TruckService {
     public void deleteTruck(UUID truckId) {
         truckRepo.deleteTruck(truckId);
     }
-
-    @Override
-    public Truck updateTruck(Truck truck) {
-        return truckRepo.updateTruck(truck);
-    }
 }
