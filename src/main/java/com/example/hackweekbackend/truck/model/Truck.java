@@ -1,16 +1,17 @@
 package com.example.hackweekbackend.truck.model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.example.hackweekbackend.assignment.model.Assignment;
+import com.example.hackweekbackend.driver.model.Status;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -24,12 +25,8 @@ public class Truck {
     public Truck(AddTruckDto addTruckDto){
         year = addTruckDto.year();
         type = addTruckDto.type();
-    }
-
-    public Truck(TruckDto truckDto) {
-        id = truckDto.id();
-        year = truckDto.year();
-        type = truckDto.type();
+        status = Status.UNASSIGNED;
+        assignments = new ArrayList<>();
     }
 
     @Id
@@ -42,9 +39,17 @@ public class Truck {
     @Column(name = "type", nullable = false)
     private String type;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    @OneToMany(mappedBy = "truck", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
+    private List<Assignment> assignments;
 
     public TruckDto mapToDto(){
-        return new TruckDto(id, year, type);
+        return new TruckDto(id, year, type,status.status, assignments.stream().map(Assignment::mapToDto).toList());
+    }
+    public TruckInfo mapToInfo(){
+        return new TruckInfo(id, year, type,status.status);
     }
 
 

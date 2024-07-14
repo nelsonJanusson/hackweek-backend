@@ -31,17 +31,12 @@ public class AssignmentController {
                 .body(assignmentDto);
     }
 
-    @PostMapping("/{assignmentId}/{driverId}")
-    ResponseEntity<AssignmentDto> setDriver(@PathVariable UUID assignmentId,@PathVariable UUID driverId) {
-        return ResponseEntity
-                .ok(assignmentService.setDriver(assignmentId,driverId).mapToDto());
-    }
 
-    @PostMapping("/leg")
-    ResponseEntity<AssignmentDto> addLeg(@RequestBody AddLegDto addLegDto) {
+    @PostMapping("/leg/{assignmentId}")
+    ResponseEntity<AssignmentDto> addLeg(@PathVariable UUID assignmentId, @RequestBody AddLegDto addLegDto) {
         return ResponseEntity
                 .ok(assignmentService
-                        .addLeg(new Leg(addLegDto), addLegDto.assignmentId())
+                        .addLeg(new Leg(addLegDto), assignmentId)
                         .mapToDto());
     }
 
@@ -66,7 +61,7 @@ public class AssignmentController {
         return ResponseEntity
                 .ok(assignmentService.assignAssignment(assignmentId,truckId,driverId).mapToDto());
     }
-    @PostMapping("/assign/{assignmentId}")
+    @PostMapping("/finnish/{assignmentId}")
     public ResponseEntity<AssignmentDto> finnishAssignment(@PathVariable UUID assignmentId) {
         return ResponseEntity
                 .ok(assignmentService.finnishAssignment(assignmentId).mapToDto());

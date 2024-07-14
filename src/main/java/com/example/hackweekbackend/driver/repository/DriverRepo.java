@@ -1,7 +1,7 @@
 package com.example.hackweekbackend.driver.repository;
 
 import com.example.hackweekbackend.driver.model.Driver;
-import com.example.hackweekbackend.truck.model.Truck;
+import com.example.hackweekbackend.driver.model.Status;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -27,17 +27,18 @@ public class DriverRepo {
     public List<Driver> getDrivers() {
         return jpaDriverRepo.findAll();
     }
-    public Driver updateDriver(Driver driver) {
-        if (driver.getId()==null||!jpaDriverRepo.existsById(driver.getId())) {
-            throw new NoSuchElementException("no driver with matching id found");
-        }
-        return jpaDriverRepo.save(driver);
-    }
 
     public void deleteDriver(UUID driverId) {
         if (!jpaDriverRepo.existsById(driverId)) {
             throw new NoSuchElementException("no driver with matching id found");
         }
         jpaDriverRepo.deleteById(driverId);
+    }
+
+    public Driver assignDriver(UUID driverId) {
+        Driver driver = jpaDriverRepo.findById(driverId)
+                .orElseThrow(() -> new NoSuchElementException("no driver with matching id found"));
+        driver.setStatus(Status.ASSIGNED);
+        return jpaDriverRepo.save(driver);
     }
 }

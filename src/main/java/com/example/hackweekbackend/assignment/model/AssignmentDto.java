@@ -2,7 +2,7 @@ package com.example.hackweekbackend.assignment.model;
 
 import com.example.hackweekbackend.driver.model.DriverInfo;
 import com.example.hackweekbackend.leg.LegInfo;
-import com.example.hackweekbackend.truck.model.TruckDto;
+import com.example.hackweekbackend.truck.model.TruckInfo;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,5 +13,5 @@ public record AssignmentDto(UUID id,
                             String pickupLocation,
                             String destination,
                             DriverInfo driverInfo,
-                            TruckDto truckDto,
+                            TruckInfo truckInfo,
                             String status) {}

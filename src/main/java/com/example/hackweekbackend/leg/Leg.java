@@ -1,15 +1,12 @@
 package com.example.hackweekbackend.leg;
 
 import com.example.hackweekbackend.assignment.model.Assignment;
-import com.example.hackweekbackend.driver.model.DriverInfo;
-import com.example.hackweekbackend.truck.model.Truck;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -26,6 +23,7 @@ public class Leg {
         endDate=addLegDto.endDate();
         startLocation=addLegDto.startLocation();
         endLocation=addLegDto.endLocation();
+
     }
 
     @Id
@@ -35,7 +33,7 @@ public class Leg {
     @Column(name = "start_date", nullable = false)
     private LocalDateTime startDate;
 
-    @Column(name = "end_date", nullable = false)
+    @Column(name = "npmend_date", nullable = false)
     private LocalDateTime endDate;
 
     @Column(name = "start_location", nullable = false)
@@ -44,7 +42,7 @@ public class Leg {
     @Column(name = "end_location", nullable = false)
     private String endLocation;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "assignment_id")
     private Assignment assignment;
 

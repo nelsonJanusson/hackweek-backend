@@ -24,6 +24,7 @@ public class Driver {
         name = addDriverDto.name();
         salary = addDriverDto.salary();
         assignments = new ArrayList<>();
+        status = Status.UNASSIGNED;
     }
 
     @Id
@@ -39,10 +40,14 @@ public class Driver {
     @OneToMany(mappedBy = "driver", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private List<Assignment> assignments;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     public DriverDto mapToDto(){
-        return new DriverDto(id,name,salary,assignments.stream().map(Assignment::mapToInfo).toList());
+        return new DriverDto(id,name,salary,assignments.stream().map(Assignment::mapToDto).toList(),status.status);
     }
+
     public DriverInfo mapToInfo(){
-        return new DriverInfo(id,name,salary);
+        return new DriverInfo(id,name,salary,status.status);
     }
 }

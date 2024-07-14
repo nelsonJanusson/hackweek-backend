@@ -14,8 +14,6 @@ public interface AssignmentService {
 
     Assignment getAssignment(UUID assignmentId);
 
-    Assignment setDriver(UUID assignmentId, UUID driverId);
-
     List<Assignment> getAssignments();
 
     void deleteAssignment(UUID assignmentId);

@@ -4,9 +4,8 @@ import com.example.hackweekbackend.driver.model.Driver;
 import com.example.hackweekbackend.driver.model.DriverInfo;
 import com.example.hackweekbackend.leg.Leg;
 import com.example.hackweekbackend.truck.model.Truck;
-import com.example.hackweekbackend.truck.model.TruckDto;
-import com.example.hackweekbackend.leg.LegInfo;
 
+import com.example.hackweekbackend.truck.model.TruckInfo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -53,21 +52,16 @@ public class Assignment {
     @JoinColumn(name = "driver_id")
     private Driver driver;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "truck_id")
     private Truck truck;
 
     @Enumerated(EnumType.STRING)
     private AssignmentStatus status;
 
-    public AssignmentInfo mapToInfo(){
-        TruckDto truckDto = truck==null? null:truck.mapToDto();
-        return new AssignmentInfo(id,legs.stream().map(Leg::mapToInfo).toList(),product,pickupLocation,destination, truckDto,status.status);
-    }
-
     public AssignmentDto mapToDto(){
         DriverInfo driverInfo = driver==null? null:driver.mapToInfo();
-        TruckDto truckDto = truck==null? null:truck.mapToDto();
-        return new AssignmentDto(id,legs.stream().map(Leg::mapToInfo).toList(),product,pickupLocation,destination, driverInfo, truckDto,status.status);
+        TruckInfo truckInfo = truck==null? null:truck.mapToInfo();
+        return new AssignmentDto(id,legs.stream().map(Leg::mapToInfo).toList(),product,pickupLocation,destination, driverInfo, truckInfo,status.status);
     }
 }

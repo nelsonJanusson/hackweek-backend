@@ -1,6 +1,6 @@
 package com.example.hackweekbackend.truck.repository;
 
-import com.example.hackweekbackend.assignment.model.Assignment;
+import com.example.hackweekbackend.driver.model.Status;
 import com.example.hackweekbackend.truck.model.Truck;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -27,17 +27,17 @@ public class TruckRepo {
         return jpaTruckRepo.findAll();
     }
 
-    public Truck updateTruck(Truck truck) {
-        if (truck.getId()==null||!jpaTruckRepo.existsById(truck.getId())) {
-            throw new NoSuchElementException("no truck with matching id found");
-        }
-        return jpaTruckRepo.save(truck);
-    }
-
     public void deleteTruck(UUID truckId) {
         if (!jpaTruckRepo.existsById(truckId)) {
             throw new NoSuchElementException("no truck with matching id found");
         }
         jpaTruckRepo.deleteById(truckId);
+    }
+
+    public Truck assignTruck(UUID truckId) {
+        Truck truck = jpaTruckRepo.findById(truckId)
+                .orElseThrow(() -> new NoSuchElementException("no truck with matching id found"));
+        truck.setStatus(Status.ASSIGNED);
+        return jpaTruckRepo.save(truck);
     }
 }

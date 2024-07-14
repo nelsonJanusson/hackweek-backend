@@ -3,6 +3,7 @@ package com.example.hackweekbackend.assignment.service;
 import com.example.hackweekbackend.assignment.model.Assignment;
 import com.example.hackweekbackend.assignment.model.AssignmentStatus;
 import com.example.hackweekbackend.assignment.repository.AssignmentRepo;
+import com.example.hackweekbackend.driver.model.Status;
 import com.example.hackweekbackend.driver.repository.DriverRepo;
 import com.example.hackweekbackend.driver.model.Driver;
 import com.example.hackweekbackend.leg.Leg;
@@ -38,13 +39,6 @@ public class AssignmentServiceImpl implements AssignmentService {
         return assignmentRepo.getAssignment(assignmentId);
     }
 
-    @Override
-    public Assignment setDriver(UUID assignmentId, UUID driverId) {
-        Assignment assignment = assignmentRepo.getAssignment(assignmentId);
-        Driver driver = driverRepo.getDriver(driverId);
-        assignment.setDriver(driver);
-        return assignmentRepo.updateAssignment(assignment);
-    }
 
     @Override
     public List<Assignment> getAssignments() {
@@ -59,8 +53,8 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Override
     public Assignment assignAssignment(UUID assignmentId, UUID truckId, UUID driverId) {
         Assignment assignment = assignmentRepo.getAssignment(assignmentId);
-        assignment.setDriver(driverRepo.getDriver(driverId));
-        assignment.setTruck(truckRepo.getTruck(truckId));
+        assignment.setDriver(driverRepo.assignDriver(driverId));
+        assignment.setTruck(truckRepo.assignTruck(truckId));
         assignment.setStatus(AssignmentStatus.ACTIVE);
         return assignmentRepo.updateAssignment(assignment);
     }
@@ -69,6 +63,8 @@ public class AssignmentServiceImpl implements AssignmentService {
     public Assignment finnishAssignment(UUID assignmentId) {
         Assignment assignment = assignmentRepo.getAssignment(assignmentId);
         assignment.setStatus(AssignmentStatus.FINISHED);
+        assignment.getDriver().setStatus(Status.UNASSIGNED);
+        assignment.getTruck().setStatus(Status.UNASSIGNED);
         return assignmentRepo.updateAssignment(assignment);
     }
 }

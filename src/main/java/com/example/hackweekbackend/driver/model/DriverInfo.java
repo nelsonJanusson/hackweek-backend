@@ -4,4 +4,5 @@ import java.util.UUID;
 
 public record DriverInfo(UUID id,
                          String name,
-                         double salary){}
+                         double salary,
+                         String status){}

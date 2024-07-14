@@ -5,7 +5,6 @@ import com.example.hackweekbackend.truck.model.Truck;
 import com.example.hackweekbackend.truck.model.TruckDto;
 import com.example.hackweekbackend.truck.service.TruckService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,9 +41,6 @@ public class TruckController {
         truckService.deleteTruck(truckId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @PutMapping
-    ResponseEntity<TruckDto> updateTruck(@RequestBody TruckDto truckDto)  {
-        return ResponseEntity.ok(truckService.updateTruck(new Truck(truckDto)).mapToDto());
-    }
+
 
 }

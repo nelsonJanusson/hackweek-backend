@@ -1,11 +1,8 @@
 package com.example.hackweekbackend.leg;
 
-import com.example.hackweekbackend.assignment.model.AssignmentInfo;
-
 import java.time.LocalDateTime;
-import java.util.UUID;
 
-public record AddLegDto(UUID assignmentId,
+public record AddLegDto(
                         LocalDateTime startDate,
                         LocalDateTime endDate,
                         String startLocation,
