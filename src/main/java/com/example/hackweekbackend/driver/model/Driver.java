@@ -25,11 +25,6 @@ public class Driver {
         salary = addDriverDto.salary();
         assignments = new ArrayList<>();
     }
-    public Driver(DriverDto driverDto){
-        id = driverDto.id();
-        name = driverDto.name();
-        salary = driverDto.salary();
-    }
 
     @Id
     @UuidGenerator

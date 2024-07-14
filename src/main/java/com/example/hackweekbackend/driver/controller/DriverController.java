@@ -42,11 +42,4 @@ public class DriverController {
        driverService.deleteDriver(driverId);
        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    /*
-    @PutMapping
-    ResponseEntity<DriverDto> updateDriver(@RequestBody DriverDto driverDto)  {
-        return ResponseEntity.ok(driverService.updateDriver(new Driver(driverDto)).mapToDto());
-    }
-
-     */
 }

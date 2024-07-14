@@ -1,5 +1,8 @@
 package com.example.hackweekbackend.leg;
 
+import com.example.hackweekbackend.assignment.model.Assignment;
+import com.example.hackweekbackend.driver.model.DriverInfo;
+import com.example.hackweekbackend.truck.model.Truck;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,4 +44,11 @@ public class Leg {
     @Column(name = "end_location", nullable = false)
     private String endLocation;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "assignment_id")
+    private Assignment assignment;
+
+    public LegInfo mapToInfo(){
+        return new LegInfo(id,startDate,endDate,startLocation,endLocation);
+    }
 }

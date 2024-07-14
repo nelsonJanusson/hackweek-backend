@@ -1,5 +1,7 @@
 package com.example.hackweekbackend.leg;
 
+import com.example.hackweekbackend.assignment.model.AssignmentInfo;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 

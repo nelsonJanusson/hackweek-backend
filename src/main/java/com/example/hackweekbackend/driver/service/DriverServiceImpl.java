@@ -19,7 +19,6 @@ public class DriverServiceImpl implements DriverService{
         return driverRepo.createDriver(driver);
     }
 
-
     @Override
     public Driver getDriver(UUID driverId) {
         return driverRepo.getDriver(driverId);
@@ -33,10 +32,5 @@ public class DriverServiceImpl implements DriverService{
     @Override
     public void deleteDriver(UUID driverId) {
         driverRepo.deleteDriver(driverId);
-    }
-
-    @Override
-    public Driver updateDriver(Driver driver) {
-       return driverRepo.updateDriver(driver);
     }
 }

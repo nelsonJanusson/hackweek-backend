@@ -10,5 +10,4 @@ public interface DriverService {
     Driver getDriver(UUID driverId);
     List<Driver> getDrivers();
     void deleteDriver(UUID driverId);
-    Driver updateDriver(Driver driver);
 }

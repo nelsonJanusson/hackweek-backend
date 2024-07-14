@@ -47,11 +47,6 @@ public class AssignmentServiceImpl implements AssignmentService {
     }
 
     @Override
-    public Assignment update(Assignment assignment) {
-        return assignmentRepo.updateAssignment(assignment);
-    }
-
-    @Override
     public List<Assignment> getAssignments() {
         return assignmentRepo.getAssignments();
     }

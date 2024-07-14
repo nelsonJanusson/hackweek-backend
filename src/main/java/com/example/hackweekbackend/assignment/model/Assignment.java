@@ -5,6 +5,7 @@ import com.example.hackweekbackend.driver.model.DriverInfo;
 import com.example.hackweekbackend.leg.Leg;
 import com.example.hackweekbackend.truck.model.Truck;
 import com.example.hackweekbackend.truck.model.TruckDto;
+import com.example.hackweekbackend.leg.LegInfo;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -31,23 +32,12 @@ public class Assignment {
         destination = addAssignmentDto.destination();
         status = AssignmentStatus.UNASSIGNED;
     }
-   /* public Assignment (AssignmentDto assignmentDto){
-        id = assignmentDto.id();
-        legs = assignmentDto.legs();
-        product= assignmentDto.product();
-        pickupLocation = assignmentDto.pickupLocation();
-        destination = assignmentDto.destination();
-        driver =new Driver(assignmentDto.driverDto()) ;
-        truck = new Truck(assignmentDto.truckDto());
-    }
-
-    */
 
     @Id
     @UuidGenerator
     private UUID id;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "assignment", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private List<Leg> legs = new ArrayList<>();
 
     @Column(name = "product", nullable = false)
@@ -72,12 +62,12 @@ public class Assignment {
 
     public AssignmentInfo mapToInfo(){
         TruckDto truckDto = truck==null? null:truck.mapToDto();
-        return new AssignmentInfo(id,legs,product,pickupLocation,destination, truckDto,status.status);
+        return new AssignmentInfo(id,legs.stream().map(Leg::mapToInfo).toList(),product,pickupLocation,destination, truckDto,status.status);
     }
 
     public AssignmentDto mapToDto(){
         DriverInfo driverInfo = driver==null? null:driver.mapToInfo();
         TruckDto truckDto = truck==null? null:truck.mapToDto();
-        return new AssignmentDto(id,legs,product,pickupLocation,destination, driverInfo, truckDto,status.status);
+        return new AssignmentDto(id,legs.stream().map(Leg::mapToInfo).toList(),product,pickupLocation,destination, driverInfo, truckDto,status.status);
     }
 }

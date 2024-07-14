@@ -10,7 +10,7 @@ import java.net.URISyntaxException;
 public class ApplicationConfiguration {
 
     @Bean
-    public URI applicationUriDev() throws URISyntaxException {
+    public URI applicationUri() throws URISyntaxException {
         return new URI("http://localhost:3000/api");
     }
 }
