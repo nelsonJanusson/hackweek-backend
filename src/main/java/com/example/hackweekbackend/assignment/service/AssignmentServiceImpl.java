@@ -1,10 +1,12 @@
 package com.example.hackweekbackend.assignment.service;
 
 import com.example.hackweekbackend.assignment.model.Assignment;
+import com.example.hackweekbackend.assignment.model.AssignmentStatus;
 import com.example.hackweekbackend.assignment.repository.AssignmentRepo;
-import com.example.hackweekbackend.driver.repository.JpaDriverRepo;
+import com.example.hackweekbackend.driver.repository.DriverRepo;
 import com.example.hackweekbackend.driver.model.Driver;
 import com.example.hackweekbackend.leg.Leg;
+import com.example.hackweekbackend.truck.repository.TruckRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,8 @@ import java.util.UUID;
 public class AssignmentServiceImpl implements AssignmentService {
 
     private final AssignmentRepo assignmentRepo;
-    private final JpaDriverRepo driverRepo;
+    private final DriverRepo driverRepo;
+    private final TruckRepo truckRepo;
 
     @Override
     public Assignment createAssignment(Assignment assignment){
@@ -38,7 +41,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Override
     public Assignment setDriver(UUID assignmentId, UUID driverId) {
         Assignment assignment = assignmentRepo.getAssignment(assignmentId);
-        Driver driver = driverRepo.findById(driverId).get();
+        Driver driver = driverRepo.getDriver(driverId);
         assignment.setDriver(driver);
         return assignmentRepo.updateAssignment(assignment);
     }
@@ -56,5 +59,21 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Override
     public void deleteAssignment(UUID assignmentId) {
         assignmentRepo.deleteAssignment(assignmentId);
+    }
+
+    @Override
+    public Assignment assignAssignment(UUID assignmentId, UUID truckId, UUID driverId) {
+        Assignment assignment = assignmentRepo.getAssignment(assignmentId);
+        assignment.setDriver(driverRepo.getDriver(driverId));
+        assignment.setTruck(truckRepo.getTruck(truckId));
+        assignment.setStatus(AssignmentStatus.ACTIVE);
+        return assignmentRepo.updateAssignment(assignment);
+    }
+
+    @Override
+    public Assignment finnishAssignment(UUID assignmentId) {
+        Assignment assignment = assignmentRepo.getAssignment(assignmentId);
+        assignment.setStatus(AssignmentStatus.FINISHED);
+        return assignmentRepo.updateAssignment(assignment);
     }
 }

@@ -1,7 +1,7 @@
 package com.example.hackweekbackend.assignment.model;
 
 import com.example.hackweekbackend.driver.model.Driver;
-import com.example.hackweekbackend.driver.model.DriverDto;
+import com.example.hackweekbackend.driver.model.DriverInfo;
 import com.example.hackweekbackend.leg.Leg;
 import com.example.hackweekbackend.truck.model.Truck;
 import com.example.hackweekbackend.truck.model.TruckDto;
@@ -29,8 +29,9 @@ public class Assignment {
         product=addAssignmentDto.product();
         pickupLocation = addAssignmentDto.pickupLocation();
         destination = addAssignmentDto.destination();
+        status = AssignmentStatus.UNASSIGNED;
     }
-    public Assignment (AssignmentDto assignmentDto){
+   /* public Assignment (AssignmentDto assignmentDto){
         id = assignmentDto.id();
         legs = assignmentDto.legs();
         product= assignmentDto.product();
@@ -39,6 +40,8 @@ public class Assignment {
         driver =new Driver(assignmentDto.driverDto()) ;
         truck = new Truck(assignmentDto.truckDto());
     }
+
+    */
 
     @Id
     @UuidGenerator
@@ -56,7 +59,7 @@ public class Assignment {
     @Column(name = "destination", nullable = false)
     private String destination;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "driver_id")
     private Driver driver;
 
@@ -64,9 +67,17 @@ public class Assignment {
     @JoinColumn(name = "truck_id")
     private Truck truck;
 
-    public AssignmentDto mapToDto(){
-        DriverDto driverDto = driver==null? null:driver.mapToDto();
+    @Enumerated(EnumType.STRING)
+    private AssignmentStatus status;
+
+    public AssignmentInfo mapToInfo(){
         TruckDto truckDto = truck==null? null:truck.mapToDto();
-        return new AssignmentDto(id,legs,product,pickupLocation,destination, driverDto, truckDto);
+        return new AssignmentInfo(id,legs,product,pickupLocation,destination, truckDto,status.status);
+    }
+
+    public AssignmentDto mapToDto(){
+        DriverInfo driverInfo = driver==null? null:driver.mapToInfo();
+        TruckDto truckDto = truck==null? null:truck.mapToDto();
+        return new AssignmentDto(id,legs,product,pickupLocation,destination, driverInfo, truckDto,status.status);
     }
 }

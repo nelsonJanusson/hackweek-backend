@@ -21,4 +21,8 @@ public interface AssignmentService {
     List<Assignment> getAssignments();
 
     void deleteAssignment(UUID assignmentId);
+
+    Assignment assignAssignment(UUID assignmentId, UUID truckId, UUID driverId);
+
+    Assignment finnishAssignment(UUID assignmentId);
 }

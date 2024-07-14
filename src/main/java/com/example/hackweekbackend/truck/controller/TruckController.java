@@ -23,7 +23,6 @@ public class TruckController {
     private final TruckService truckService;
     private final URI uri;
 
-
     @PostMapping
     ResponseEntity<TruckDto> createTruck(@RequestBody AddTruckDto addTruckDto) {
         TruckDto truckDto = truckService.createTruck(new Truck(addTruckDto)).mapToDto();

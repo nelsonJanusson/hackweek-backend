@@ -3,6 +3,7 @@ package com.example.hackweekbackend.assignment.controller;
 import com.example.hackweekbackend.assignment.service.AssignmentService;
 import com.example.hackweekbackend.leg.AddLegDto;
 import com.example.hackweekbackend.leg.Leg;
+import com.example.hackweekbackend.truck.model.TruckDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,12 +37,14 @@ public class AssignmentController {
         return ResponseEntity
                 .ok(assignmentService.setDriver(assignmentId,driverId).mapToDto());
     }
-
+/*
     @PutMapping
     ResponseEntity<AssignmentDto> updateAssignment(@RequestBody AssignmentDto assignmentDto) {
         return ResponseEntity
                 .ok(assignmentService.update(new Assignment(assignmentDto)).mapToDto());
     }
+
+ */
 
     @PostMapping("/leg")
     ResponseEntity<AssignmentDto> addLeg(@RequestBody AddLegDto addLegDto) {
@@ -64,4 +67,18 @@ public class AssignmentController {
         assignmentService.deleteAssignment(assignmentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PostMapping("/assign/{assignmentId}/{truckId}/{driverId}/")
+    public ResponseEntity<AssignmentDto> assignAssignment(@PathVariable UUID assignmentId,
+                                                          @PathVariable UUID truckId,
+                                                          @PathVariable UUID driverId) {
+        return ResponseEntity
+                .ok(assignmentService.assignAssignment(assignmentId,truckId,driverId).mapToDto());
+    }
+    @PostMapping("/assign/{assignmentId}")
+    public ResponseEntity<AssignmentDto> finnishAssignment(@PathVariable UUID assignmentId) {
+        return ResponseEntity
+                .ok(assignmentService.finnishAssignment(assignmentId).mapToDto());
+    }
+
 }
