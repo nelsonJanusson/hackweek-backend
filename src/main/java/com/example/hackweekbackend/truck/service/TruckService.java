@@ -13,4 +13,10 @@ public interface TruckService {
     List<Truck> getTrucks();
 
     void deleteTruck(UUID truckId);
+
+    List<Truck> getAssignedTrucks();
+
+    List<Truck> getUnassignedTrucks();
+
+
 }

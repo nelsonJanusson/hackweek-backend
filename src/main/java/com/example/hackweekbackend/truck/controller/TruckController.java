@@ -42,5 +42,13 @@ public class TruckController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/unassigned")
+    ResponseEntity<List<TruckDto>> getUnassignedTrucks() {
+        return ResponseEntity.ok(truckService.getUnassignedTrucks().stream().map(Truck::mapToDto).toList());
+    }
+    @GetMapping("/assigned")
+    ResponseEntity<List<TruckDto>> getAssignedTrucks() {
+        return ResponseEntity.ok(truckService.getAssignedTrucks().stream().map(Truck::mapToDto).toList());
+    }
 
 }

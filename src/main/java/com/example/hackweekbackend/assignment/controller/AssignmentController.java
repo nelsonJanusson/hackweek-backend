@@ -54,7 +54,7 @@ public class AssignmentController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping("/assign/{assignmentId}/{truckId}/{driverId}/")
+    @PostMapping("/assign/{assignmentId}/{truckId}/{driverId}")
     public ResponseEntity<AssignmentDto> assignAssignment(@PathVariable UUID assignmentId,
                                                           @PathVariable UUID truckId,
                                                           @PathVariable UUID driverId) {

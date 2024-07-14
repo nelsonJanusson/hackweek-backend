@@ -33,4 +33,14 @@ public class DriverServiceImpl implements DriverService{
     public void deleteDriver(UUID driverId) {
         driverRepo.deleteDriver(driverId);
     }
+
+    @Override
+    public List<Driver> getAssignedDrivers() {
+        return driverRepo.getAssignedDrivers();
+    }
+
+    @Override
+    public List<Driver> getUnassignedDrivers() {
+        return driverRepo.getUnassignedDrivers();
+    }
 }

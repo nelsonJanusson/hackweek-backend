@@ -33,4 +33,15 @@ public class TruckServiceImpl implements TruckService {
     public void deleteTruck(UUID truckId) {
         truckRepo.deleteTruck(truckId);
     }
+
+    @Override
+    public List<Truck> getAssignedTrucks() {
+        return truckRepo.getAssignedTrucks();
+    }
+
+    @Override
+    public List<Truck> getUnassignedTrucks() {
+        return truckRepo.getUnassignedTrucks();
+    }
+
 }

@@ -42,4 +42,13 @@ public class DriverController {
        driverService.deleteDriver(driverId);
        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @GetMapping("/unassigned")
+    ResponseEntity<List<DriverDto>> getUnassignedTrucks() {
+        return ResponseEntity.ok(driverService.getUnassignedDrivers().stream().map(Driver::mapToDto).toList());
+    }
+
+    @GetMapping("/assigned")
+    ResponseEntity<List<DriverDto>> getAssignedTrucks() {
+        return ResponseEntity.ok(driverService.getAssignedDrivers().stream().map(Driver::mapToDto).toList());
+    }
 }

@@ -27,6 +27,13 @@ public class TruckRepo {
         return jpaTruckRepo.findAll();
     }
 
+    public List<Truck> getUnassignedTrucks() {
+        return jpaTruckRepo.findAllByStatus(Status.UNASSIGNED);
+    }
+    public List<Truck> getAssignedTrucks() {
+        return jpaTruckRepo.findAllByStatus(Status.ASSIGNED);
+    }
+
     public void deleteTruck(UUID truckId) {
         if (!jpaTruckRepo.existsById(truckId)) {
             throw new NoSuchElementException("no truck with matching id found");

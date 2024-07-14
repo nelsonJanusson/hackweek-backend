@@ -24,9 +24,6 @@ public class AssignmentRepo{
     }
 
     public Assignment updateAssignment(Assignment assignment) {
-        if (assignment.getId()==null||!jpaAssignmentRepo.existsById(assignment.getId())) {
-            throw new NoSuchElementException("no assignment with matching id found");
-        }
         return jpaAssignmentRepo.save(assignment);
     }
 

@@ -28,6 +28,13 @@ public class DriverRepo {
         return jpaDriverRepo.findAll();
     }
 
+    public List<Driver> getUnassignedDrivers() {
+        return jpaDriverRepo.findAllByStatus(Status.UNASSIGNED);
+    }
+    public List<Driver> getAssignedDrivers() {
+        return jpaDriverRepo.findAllByStatus(Status.ASSIGNED);
+    }
+
     public void deleteDriver(UUID driverId) {
         if (!jpaDriverRepo.existsById(driverId)) {
             throw new NoSuchElementException("no driver with matching id found");
