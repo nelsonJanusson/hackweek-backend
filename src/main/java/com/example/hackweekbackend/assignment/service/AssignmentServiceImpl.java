@@ -29,6 +29,7 @@ public class AssignmentServiceImpl implements AssignmentService {
     @Override
     public Assignment addLeg(Leg leg, UUID assignmentId){
         Assignment assignment = assignmentRepo.getAssignment(assignmentId);
+        leg.setAssignment(assignment);
         assignment.getLegs().add(leg);
         return assignmentRepo.updateAssignment(assignment);
     }
