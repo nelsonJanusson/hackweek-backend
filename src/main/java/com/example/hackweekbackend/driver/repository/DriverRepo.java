@@ -31,6 +31,7 @@ public class DriverRepo {
     public List<Driver> getUnassignedDrivers() {
         return jpaDriverRepo.findAllByStatus(Status.UNASSIGNED);
     }
+
     public List<Driver> getAssignedDrivers() {
         return jpaDriverRepo.findAllByStatus(Status.ASSIGNED);
     }

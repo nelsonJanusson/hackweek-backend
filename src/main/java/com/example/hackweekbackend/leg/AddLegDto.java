@@ -1,9 +1,9 @@
 package com.example.hackweekbackend.leg;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public record AddLegDto(
-                        LocalDateTime startDate,
-                        LocalDateTime endDate,
+        LocalDate startDate,
+        LocalDate endDate,
                         String startLocation,
                         String endLocation) {}
