@@ -1,4 +1,6 @@
 package com.example.hackweekbackend.invoice;
 
-public record InvoiceInfo () {
+import java.util.UUID;
+
+public record InvoiceInfo (UUID id, double sum, boolean paid) {
 }

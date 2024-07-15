@@ -1,4 +1,6 @@
 package com.example.hackweekbackend.invoice;
 
-public record AddInvoiceDto() {
+import java.util.UUID;
+
+public record AddInvoiceDto(double sum, boolean paid) {
 }

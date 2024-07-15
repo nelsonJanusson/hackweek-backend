@@ -1,4 +1,6 @@
 package com.example.hackweekbackend.customer.model;
 
-public record CustomerInfo() {
+import java.util.UUID;
+
+public record CustomerInfo(UUID id, String name) {
 }
