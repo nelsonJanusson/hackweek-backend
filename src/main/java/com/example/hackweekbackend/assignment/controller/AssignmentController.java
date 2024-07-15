@@ -62,7 +62,7 @@ public class AssignmentController {
                 .ok(assignmentService.assignAssignment(assignmentId,truckId,driverId).mapToDto());
     }
 
-    @PostMapping("/finnish/{assignmentId}")
+    @PostMapping("/finish/{assignmentId}")
     public ResponseEntity<AssignmentDto> finnishAssignment(@PathVariable UUID assignmentId) {
         return ResponseEntity
                 .ok(assignmentService.finnishAssignment(assignmentId).mapToDto());

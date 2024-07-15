@@ -7,6 +7,5 @@ import java.util.UUID;
 
 public record DriverDto(UUID id,
                         String name,
-                        double salary,
                         List<AssignmentDto> assignments,
                         String status) {}

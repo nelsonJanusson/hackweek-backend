@@ -22,7 +22,6 @@ public class Driver {
 
     public Driver(AddDriverDto addDriverDto){
         name = addDriverDto.name();
-        salary = addDriverDto.salary();
         assignments = new ArrayList<>();
         status = Status.UNASSIGNED;
     }
@@ -34,9 +33,6 @@ public class Driver {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "salary", nullable = false)
-    private double salary;
-
     @OneToMany(mappedBy = "driver", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private List<Assignment> assignments;
 
@@ -44,10 +40,10 @@ public class Driver {
     private Status status;
 
     public DriverDto mapToDto(){
-        return new DriverDto(id,name,salary,assignments.stream().map(Assignment::mapToDto).toList(),status.status);
+        return new DriverDto(id,name,assignments.stream().map(Assignment::mapToDto).toList(),status.status);
     }
 
     public DriverInfo mapToInfo(){
-        return new DriverInfo(id,name,salary,status.status);
+        return new DriverInfo(id,name,status.status);
     }
 }
