@@ -23,8 +23,9 @@ import java.util.UUID;
 public class Truck {
 
     public Truck(AddTruckDto addTruckDto){
-        year = addTruckDto.year();
-        type = addTruckDto.type();
+        payload = addTruckDto.payload();
+        weight = addTruckDto.weight();
+        height = addTruckDto.height();
         status = Status.UNASSIGNED;
         assignments = new ArrayList<>();
     }
@@ -33,11 +34,14 @@ public class Truck {
     @UuidGenerator
     private UUID id;
 
-    @Column(name = "year", nullable = false)
-    private int year;
+    @Column(name = "payload", nullable = false)
+    private double payload;
 
-    @Column(name = "type", nullable = false)
-    private String type;
+    @Column(name = "weight", nullable = false)
+    private double weight;
+
+    @Column(name = "height", nullable = false)
+    private double height;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -46,10 +50,10 @@ public class Truck {
     private List<Assignment> assignments;
 
     public TruckDto mapToDto(){
-        return new TruckDto(id, year, type,status.status, assignments.stream().map(Assignment::mapToDto).toList());
+        return new TruckDto(id, payload, weight, height ,status.status, assignments.stream().map(Assignment::mapToDto).toList());
     }
     public TruckInfo mapToInfo(){
-        return new TruckInfo(id, year, type,status.status);
+        return new TruckInfo(id, payload, weight, height ,status.status);
     }
 
 

@@ -3,7 +3,8 @@ package com.example.hackweekbackend.truck.model;
 import java.util.UUID;
 
 public record TruckInfo(UUID id,
-                        int year,
-                        String type,
+                        double payload,
+                        double weight,
+                        double height,
                         String status) {
 }

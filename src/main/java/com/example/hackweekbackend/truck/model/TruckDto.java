@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.UUID;
 
 public record TruckDto(UUID id,
-                       int year,
-                       String type,
+                       double payload,
+                       double weight,
+                       double height,
                        String status,
                        List<AssignmentDto> assignments) {}
