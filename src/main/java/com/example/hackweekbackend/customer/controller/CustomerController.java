@@ -52,6 +52,4 @@ public class CustomerController {
                         .addAssignment(new Assignment(addAssignmentDto), customerId)
                         .mapToDto());
     }
-
-
 }
