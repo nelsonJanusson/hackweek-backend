@@ -1,5 +1,7 @@
 package com.example.hackweekbackend.customer.controller;
 
+import com.example.hackweekbackend.assignment.model.AddAssignmentDto;
+import com.example.hackweekbackend.assignment.model.Assignment;
 import com.example.hackweekbackend.customer.model.AddCustomerDto;
 import com.example.hackweekbackend.customer.model.Customer;
 import com.example.hackweekbackend.customer.model.CustomerDto;
@@ -43,5 +45,13 @@ public class CustomerController {
         customerService.deleteCustomer(customerId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @PostMapping("/{customerId}/assignment")
+    ResponseEntity<CustomerDto> addLeg(@PathVariable UUID customerId, @RequestBody AddAssignmentDto addAssignmentDto) {
+        return ResponseEntity
+                .ok(customerService
+                        .addAssignment(new Assignment(addAssignmentDto), customerId)
+                        .mapToDto());
+    }
+
 
 }

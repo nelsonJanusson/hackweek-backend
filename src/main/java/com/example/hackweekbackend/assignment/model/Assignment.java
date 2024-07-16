@@ -1,5 +1,6 @@
 package com.example.hackweekbackend.assignment.model;
 
+import com.example.hackweekbackend.customer.model.Customer;
 import com.example.hackweekbackend.driver.model.Driver;
 import com.example.hackweekbackend.driver.model.DriverInfo;
 import com.example.hackweekbackend.leg.Leg;
@@ -59,9 +60,13 @@ public class Assignment {
     @Enumerated(EnumType.STRING)
     private AssignmentStatus status;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
     public AssignmentDto mapToDto(){
         DriverInfo driverInfo = driver==null? null:driver.mapToInfo();
         TruckInfo truckInfo = truck==null? null:truck.mapToInfo();
-        return new AssignmentDto(id,legs.stream().map(Leg::mapToInfo).toList(),product,pickupLocation,destination, driverInfo, truckInfo,status.status);
+        return new AssignmentDto(id,legs.stream().map(Leg::mapToInfo).toList(),product,pickupLocation,destination, driverInfo, truckInfo,status.status, customer.mapToInfo());
     }
 }

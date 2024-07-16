@@ -1,5 +1,6 @@
 package com.example.hackweekbackend.customer.service;
 
+import com.example.hackweekbackend.assignment.model.Assignment;
 import com.example.hackweekbackend.customer.model.Customer;
 import com.example.hackweekbackend.customer.repository.CustomerRepo;
 import lombok.AllArgsConstructor;
@@ -31,5 +32,13 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public void deleteCustomer(UUID customerId) {
         customerRepo.deleteCustomer(customerId);
+    }
+
+    @Override
+    public Customer addAssignment(Assignment assignment, UUID customerId) {
+        Customer customer = customerRepo.getCustomer(customerId);
+        assignment.setCustomer(customer);
+        customer.getAssignments().add(assignment);
+        return customerRepo.updateCustomer(customer);
     }
 }

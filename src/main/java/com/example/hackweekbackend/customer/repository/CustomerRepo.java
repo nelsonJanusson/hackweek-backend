@@ -33,4 +33,8 @@ public class CustomerRepo {
         }
         jpaCustomerRepo.deleteById(customerId);
     }
+
+    public Customer updateCustomer(Customer customer) {
+        return jpaCustomerRepo.save(customer);
+    }
 }

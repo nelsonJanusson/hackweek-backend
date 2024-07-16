@@ -1,5 +1,6 @@
 package com.example.hackweekbackend.customer.service;
 
+import com.example.hackweekbackend.assignment.model.Assignment;
 import com.example.hackweekbackend.customer.model.Customer;
 import com.example.hackweekbackend.customer.model.CustomerDto;
 
@@ -15,4 +16,6 @@ public interface CustomerService {
     List<Customer> getCustomers();
 
     void deleteCustomer(UUID customerId);
+
+    Customer addAssignment(Assignment assignment, UUID customerId);
 }

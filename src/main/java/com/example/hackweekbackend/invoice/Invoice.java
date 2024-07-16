@@ -18,9 +18,11 @@ import java.util.UUID;
 @Entity
 @Table(name = "invoice")
 public class Invoice {
+
     public Invoice(AddInvoiceDto addInvoiceDto){
         sum = addInvoiceDto.sum();
     }
+
     @Id
     @UuidGenerator
     private UUID id;

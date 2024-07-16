@@ -24,7 +24,6 @@ public class Leg {
         endDate=addLegDto.endDate();
         startLocation=addLegDto.startLocation();
         endLocation=addLegDto.endLocation();
-
     }
 
     @Id
