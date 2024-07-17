@@ -47,4 +47,8 @@ public class TruckRepo {
         truck.setStatus(Status.ASSIGNED);
         return jpaTruckRepo.save(truck);
     }
+
+    public Truck updateTruck(Truck truck) {
+        return jpaTruckRepo.save(truck);
+    }
 }

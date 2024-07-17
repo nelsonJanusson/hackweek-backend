@@ -49,4 +49,7 @@ public class DriverRepo {
         driver.setStatus(Status.ASSIGNED);
         return jpaDriverRepo.save(driver);
     }
+    public Driver updateDriver(Driver driver) {
+        return jpaDriverRepo.save(driver);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.hackweekbackend.customer.service;
 
 import com.example.hackweekbackend.assignment.model.Assignment;
+import com.example.hackweekbackend.assignment.repository.AssignmentRepo;
 import com.example.hackweekbackend.customer.model.Customer;
 import com.example.hackweekbackend.customer.repository.CustomerRepo;
 import lombok.AllArgsConstructor;
